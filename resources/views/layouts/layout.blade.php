@@ -11,7 +11,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('produits.index') }}">Accueil</a>
+                    <a class="nav-link" href="{{ route('index') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('boutiques.index') }}">Artisans</a>
@@ -48,7 +48,7 @@
             @yield('content')
         </div>
     </main>
-    <footer class="text-center mt-4 mb-2">
+    <footer>
         Copyright © Hestim
     </footer>
 </body>

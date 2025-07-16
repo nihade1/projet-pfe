@@ -7,29 +7,39 @@ use App\Models\Boutique;
 
 class BoutiqueController extends Controller
 {
-    // Affiche la liste des boutiques
+    /**
+     * Affiche la liste des boutiques pour les visiteurs du site
+     */
     public function index()
     {
         $boutiques = Boutique::all();
         return view('boutiques.index', compact('boutiques'));
     }
 
-    // Affiche le formulaire de création
-    public function create()
+    /**
+     * Affiche une boutique pour les visiteurs
+     */
+    public function afficher(Boutique $boutique)
     {
-        return view('boutiques.create');
-    }
-
-    // Enregistre une nouvelle boutique
-    public function store(Request $request)
-    {
-        // ... logique d'enregistrement ...
-    }
-
-    // Affiche une boutique
-    public function show($id)
-    {
-        $boutique = Boutique::findOrFail($id);
         return view('boutiques.show', compact('boutique'));
+    }
+    
+    /**
+     * Enregistre un avis sur une boutique
+     */
+    public function enregistrerAvis(Request $request, Boutique $boutique)
+    {
+        $request->validate([
+            'note' => 'required|integer|min:1|max:5',
+            'commentaire' => 'nullable|string|max:500',
+        ]);
+
+        $boutique->avis()->create([
+            'user_id' => auth()->id(),
+            'note' => $request->note,
+            'commentaire' => $request->commentaire,
+        ]);
+
+        return back()->with('success', 'Votre avis a été enregistré avec succès !');
     }
 }

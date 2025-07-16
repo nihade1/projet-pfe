@@ -22,7 +22,7 @@ Route::get('/produits', [ProduitController::class, 'index'])->name('produits.ind
 Route::get('/produits/{produit}', [ProduitController::class, 'afficher'])->name('produits.afficher');
 Route::post('/produits/{produit}/avis', [ProduitController::class, 'enregistrerAvis'])->name('produits.avis');
 
-// Routes pour les boutiques
+// Routes pour les boutiques (interface publique)
 Route::get('/boutiques', [BoutiqueController::class, 'index'])->name('boutiques.index');
 Route::get('/boutiques/{boutique}', [BoutiqueController::class, 'afficher'])->name('boutiques.afficher');
 Route::post('/boutiques/{boutique}/avis', [BoutiqueController::class, 'enregistrerAvis'])->name('boutiques.avis');
@@ -45,6 +45,7 @@ Route::middleware('artisan')->prefix('artisan')->name('artisan.')->group(functio
     // Gestion de boutique
     Route::get('/boutique/creer', [ArtisanBoutiqueController::class, 'creer'])->name('boutique.creer');
     Route::post('/boutique', [ArtisanBoutiqueController::class, 'enregistrer'])->name('boutique.enregistrer');
+    Route::get('/boutique', [ArtisanBoutiqueController::class, 'dashboard'])->name('boutique.dashboard');
     Route::get('/boutique/editer', [ArtisanBoutiqueController::class, 'editer'])->name('boutique.editer');
     Route::put('/boutique', [ArtisanBoutiqueController::class, 'mettreAJour'])->name('boutique.mettreAJour');
     // Gestion de produits
