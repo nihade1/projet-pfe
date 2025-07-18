@@ -8,7 +8,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Commande extends Model
 {
-    protected $fillable = ['user_id', 'statut', 'date', 'total'];
+    protected $fillable = [
+        'user_id', 
+        'statut', 
+        'montant_total',
+        'adresse_livraison',
+        'code_postal_livraison',
+        'ville_livraison',
+        'pays_livraison',
+        'telephone'
+    ];
 
     public function user(): BelongsTo
     {

@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ArticleCommande extends Model
 {
-    protected $fillable = ['commande_id', 'produit_id', 'quantite', 'prix'];
+    protected $fillable = [
+        'commande_id', 
+        'produit_id', 
+        'quantite', 
+        'prix_unitaire',
+        'statut'
+    ];
 
     public function commande(): BelongsTo
     {

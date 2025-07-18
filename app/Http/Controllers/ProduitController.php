@@ -4,53 +4,64 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produit;
+use App\Models\Categorie;
+use App\Models\Avis;
 
 class ProduitController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Produit::query();
+        $query = Produit::query()->with(['boutique', 'categorie']);
+        
         if ($request->filled('categorie')) {
             $query->where('categorie_id', $request->categorie);
         }
+        
         if ($request->filled('artisan')) {
             $query->whereHas('boutique', function($q) use ($request) {
                 $q->where('artisan_id', $request->artisan);
             });
         }
-        $produits = $query->paginate(12);
-        return view('produits.index', compact('produits'));
+        
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nom', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        
+        $produits = $query->where('stock', '>', 0)->paginate(12);
+        $categories = Categorie::all();
+        
+        return view('produits.index', compact('produits', 'categories'));
     }
 
-    public function show($id)
+    public function afficher(Produit $produit)
     {
-        $produit = Produit::findOrFail($id);
-        return view('produits.show', compact('produit'));
+        $produit->load(['boutique.artisan', 'categorie', 'avis.user']);
+        $produitsRelies = Produit::where('categorie_id', $produit->categorie_id)
+            ->where('id', '!=', $produit->id)
+            ->where('stock', '>', 0)
+            ->take(4)
+            ->get();
+        
+        return view('produits.show', compact('produit', 'produitsRelies'));
     }
-
-    public function create()
+    
+    public function enregistrerAvis(Request $request, Produit $produit)
     {
-        return view('produits.create');
-    }
+        $request->validate([
+            'note' => 'required|integer|min:1|max:5',
+            'commentaire' => 'nullable|string|max:500',
+        ]);
 
-    public function store(Request $request)
-    {
-        // ... logique d'enregistrement ...
-    }
+        $produit->avis()->create([
+            'user_id' => auth()->id(),
+            'note' => $request->note,
+            'commentaire' => $request->commentaire,
+        ]);
 
-    public function edit($id)
-    {
-        $produit = Produit::findOrFail($id);
-        return view('produits.edit', compact('produit'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        // ... logique de mise à jour ...
-    }
-
-    public function destroy($id)
-    {
-        // ... logique de suppression ...
+        return back()->with('success', 'Votre avis a été enregistré avec succès !');
     }
 }

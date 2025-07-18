@@ -7,6 +7,7 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\BoutiqueController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\ArtisanController;
 use App\Http\Controllers\Artisan\TableauDeBordController;
 use App\Http\Controllers\Artisan\BoutiqueController as ArtisanBoutiqueController;
 use App\Http\Controllers\Artisan\ProduitController as ArtisanProduitController;
@@ -30,8 +31,8 @@ Route::post('/boutiques/{boutique}/avis', [BoutiqueController::class, 'enregistr
 // Routes pour le panier
 Route::get('/panier', [PanierController::class, 'index'])->name('panier.index');
 Route::post('/panier/ajouter', [PanierController::class, 'ajouter'])->name('panier.ajouter');
-Route::put('/panier/{articlePanier}', [PanierController::class, 'mettreAJour'])->name('panier.mettreAJour');
-Route::delete('/panier/{articlePanier}', [PanierController::class, 'supprimer'])->name('panier.supprimer');
+Route::put('/panier/{produit}', [PanierController::class, 'mettreAJour'])->name('panier.mettreAJour');
+Route::delete('/panier/{produit}', [PanierController::class, 'supprimer'])->name('panier.supprimer');
 
 // Routes pour les commandes
 Route::get('/commandes', [CommandeController::class, 'index'])->name('commandes.index');
@@ -39,9 +40,16 @@ Route::get('/commandes/paiement', [CommandeController::class, 'paiement'])->name
 Route::post('/commandes', [CommandeController::class, 'enregistrer'])->name('commandes.enregistrer');
 Route::get('/commandes/{commande}', [CommandeController::class, 'afficher'])->name('commandes.afficher');
 
+// Routes pour les artisans (inscription et profil public)
+Route::get('/artisans', [ArtisanController::class, 'index'])->name('artisans.index');
+Route::get('/artisans/inscription', [ArtisanController::class, 'create'])->name('artisans.create');
+Route::post('/artisans', [ArtisanController::class, 'store'])->name('artisans.store');
+Route::get('/artisans/{artisan}', [ArtisanController::class, 'show'])->name('artisans.show');
+
 // Routes pour les artisans (espace protégé)
 Route::middleware('artisan')->prefix('artisan')->name('artisan.')->group(function () {
     Route::get('/tableau-de-bord', [TableauDeBordController::class, 'index'])->name('tableau-de-bord');
+    
     // Gestion de boutique
     Route::get('/boutique/creer', [ArtisanBoutiqueController::class, 'creer'])->name('boutique.creer');
     Route::post('/boutique', [ArtisanBoutiqueController::class, 'enregistrer'])->name('boutique.enregistrer');

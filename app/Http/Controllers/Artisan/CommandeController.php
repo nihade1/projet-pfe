@@ -28,7 +28,32 @@ class CommandeController extends Controller
             $query->whereHas('produit', function($query) use ($boutique) {
                 $query->where('boutique_id', $boutique->id);
             });
-        })->latest()->get();
+        })->with(['user', 'articles.produit'])->latest()->paginate(10);
+        
+        // Calculer les montants et statuts pour chaque commande
+        foreach ($commandes as $commande) {
+            // Calculer le montant des articles de cette boutique
+            $commande->montant_boutique = $commande->articles()
+                ->whereHas('produit', function($query) use ($boutique) {
+                    $query->where('boutique_id', $boutique->id);
+                })
+                ->sum(\DB::raw('prix_unitaire * quantite'));
+            
+            // Déterminer le statut prédominant des articles de cette boutique
+            $articles = $commande->articles()
+                ->whereHas('produit', function($query) use ($boutique) {
+                    $query->where('boutique_id', $boutique->id);
+                })
+                ->get();
+            
+            $statut = 'en_attente'; // Par défaut
+            if ($articles->where('statut', 'en_preparation')->count() > 0) $statut = 'en_preparation';
+            if ($articles->where('statut', 'expediee')->count() == $articles->count()) $statut = 'expediee';
+            if ($articles->where('statut', 'livree')->count() == $articles->count()) $statut = 'livree';
+            if ($articles->where('statut', 'annulee')->count() == $articles->count()) $statut = 'annulee';
+            
+            $commande->statut_boutique = $statut;
+        }
         
         return view('artisan.commandes.index', compact('commandes', 'boutique'));
     }
