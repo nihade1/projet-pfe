@@ -52,7 +52,7 @@ class BoutiqueController extends Controller
         $boutique->save();
 
         return redirect()->route('artisan.boutique.dashboard')
-            ->with('success', 'Votre boutique a été créée avec succès !');
+            ->with('success', 'Votre boutique a été créée avec succès ! Vous pouvez maintenant ajouter des produits à votre boutique.');
     }
 
     /**
@@ -69,7 +69,7 @@ class BoutiqueController extends Controller
         }
 
         $produits = $boutique->produits()->latest()->get();
-        $commandes = $boutique->commandes()->latest()->take(5)->get();
+        $commandes = $boutique->commandes()->orderBy('created_at', 'desc')->take(5)->get();
         
         return view('artisan.boutique.dashboard', compact('boutique', 'produits', 'commandes'));
     }

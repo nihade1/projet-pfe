@@ -15,7 +15,7 @@ use App\Http\Controllers\Artisan\CommandeController as ArtisanCommandeController
 
 
 // Routes d'accueil et de recherche
-Route::get('/', [HomeController::class, 'index'])->name('accueil');
+Route::get('/', action: [HomeController::class, 'index'])->name('index');
 Route::get('/recherche', [HomeController::class, 'recherche'])->name('recherche');
 
 // Routes pour les produits
@@ -47,7 +47,7 @@ Route::post('/artisans', [ArtisanController::class, 'store'])->name('artisans.st
 Route::get('/artisans/{artisan}', [ArtisanController::class, 'show'])->name('artisans.show');
 
 // Routes pour les artisans (espace protégé)
-Route::middleware('artisan')->prefix('artisan')->name('artisan.')->group(function () {
+Route::middleware(\App\Http\Middleware\EnsureUserIsArtisan::class)->prefix('artisan')->name('artisan.')->group(function () {
     Route::get('/tableau-de-bord', [TableauDeBordController::class, 'index'])->name('tableau-de-bord');
     
     // Gestion de boutique
@@ -69,9 +69,7 @@ Route::middleware('artisan')->prefix('artisan')->name('artisan.')->group(functio
     Route::put('/commandes/{commande}/statut', [ArtisanCommandeController::class, 'mettreAJourStatut'])->name('commandes.statut');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [ArtisanBoutiqueController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

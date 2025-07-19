@@ -58,6 +58,9 @@
                             <a href="{{ route('boutiques.afficher', $boutique) }}" class="btn btn-sm btn-outline-primary ms-2">
                                 <i class="fas fa-eye"></i> Voir en tant que client
                             </a>
+                            <a href="{{ route('artisan.produits.creer') }}" class="btn btn-sm btn-success ms-2">
+                                <i class="fas fa-plus"></i> Ajouter un produit
+                            </a>
                         </div>
                     </div>
                 </div>
