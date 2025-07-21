@@ -57,6 +57,6 @@ class RegisteredUserController extends Controller
             return redirect(route('artisan.boutique.creer'));
         }
 
-        return redirect(route('dashboard'));
+        return redirect(route('index'));
     }
 }
