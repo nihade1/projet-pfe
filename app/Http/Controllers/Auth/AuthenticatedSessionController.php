@@ -28,7 +28,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+        
+        if ($user->role === 'artisan') {
+            // Si l'utilisateur est un artisan
+            if ($user->artisan) {
+                // S'il a déjà un profil artisan, vérifier s'il a une boutique
+                if ($user->artisan->boutique) {
+                    return redirect()->route('artisan.boutique.dashboard');
+                } else {
+                    return redirect()->route('artisan.boutique.creer');
+                }
+            } else {
+                // S'il n'a pas encore de profil artisan, le rediriger vers la création
+                return redirect()->route('artisan.boutique.creer');
+            }
+        } else {
+            // Si c'est un client, le rediriger vers la page d'accueil
+            return redirect()->route('index');
+        }
     }
 
     /**

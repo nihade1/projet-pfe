@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\ArticleCommande;
 use App\Models\Commande;
+use App\Models\Avis;
 
 class Boutique extends Model
 {
@@ -23,15 +24,33 @@ class Boutique extends Model
     }
     
     /**
+     * Obtient les avis associés à cette boutique
+     */
+    public function avis(): HasMany
+    {
+        return $this->hasMany(Avis::class);
+    }
+    
+    /**
      * Obtient les commandes associées à cette boutique via les articles de commande
      */
     public function commandes()
     {
         // Récupère les IDs des produits de cette boutique
-        $produitIds = $this->produits()->pluck('id');
+        $produitIds = $this->produits()->pluck('id')->toArray();
+        
+        if (empty($produitIds)) {
+            // Si aucun produit n'existe encore, retourner une collection vide
+            return Commande::whereRaw('1 = 0');
+        }
         
         // Récupère les IDs de commandes qui contiennent ces produits
-        $commandeIds = ArticleCommande::whereIn('produit_id', $produitIds)->pluck('commande_id')->unique();
+        $commandeIds = ArticleCommande::whereIn('produit_id', $produitIds)->pluck('commande_id')->unique()->toArray();
+        
+        if (empty($commandeIds)) {
+            // Si aucune commande n'existe encore, retourner une collection vide
+            return Commande::whereRaw('1 = 0');
+        }
         
         // Retourne les commandes correspondantes
         return Commande::whereIn('id', $commandeIds);

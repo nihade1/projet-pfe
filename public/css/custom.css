@@ -1,0 +1,148 @@
+/* Couleurs personnalisées */
+:root {
+    --primary-color: #5e3577; /* Violet pour la couleur principale */
+    --secondary-color: #f4a261; /* Orange pour les accents */
+    --text-color: #333; /* Texte foncé */
+    --bg-light: #f8f9fa; /* Fond clair */
+    --footer-bg: #2d2241; /* Fond du footer plus foncé */
+    --footer-text: #fff; /* Texte du footer */
+}
+
+/* Style général */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+}
+
+main {
+    flex: 1; /* Prend tout l'espace disponible */
+}
+
+/* Navbar */
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.8rem 1rem;
+}
+
+.navbar-brand img {
+    height: 50px;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+.navbar .nav-link {
+    color: var(--text-color) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Boutons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #4a2a5e; /* Plus foncé au survol */
+    border-color: #4a2a5e;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-outline-secondary {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* Panier */
+.cart-icon {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 2rem 0;
+    margin-top: auto; /* Pousse le footer en bas */
+}
+
+/* Style pour les cartes */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Bannière d'accueil */
+.hero-banner {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #8a4baf 100%);
+    color: white;
+    padding: 3rem 0;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+/* Style pour la page active dans le menu */
+.nav-link.active {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
+/* Utilitaires */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.text-secondary {
+    color: var(--secondary-color) !important;
+}
+
+.bg-primary-light {
+    background-color: rgba(94, 53, 119, 0.1);
+}

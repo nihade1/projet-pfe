@@ -10,9 +10,21 @@ class BoutiqueController extends Controller
     /**
      * Affiche la liste des boutiques pour les visiteurs du site
      */
-    public function index()
+    public function index(Request $request)
     {
-        $boutiques = Boutique::all();
+        $query = Boutique::with(['artisan.user', 'produits']);
+        
+        // Recherche par nom de boutique
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nom', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%')
+                  ->orWhereHas('artisan.user', function($q) use ($search) {
+                      $q->where('name', 'like', '%' . $search . '%');
+                  });
+        }
+        
+        $boutiques = $query->latest()->paginate(9);
         return view('boutiques.index', compact('boutiques'));
     }
 

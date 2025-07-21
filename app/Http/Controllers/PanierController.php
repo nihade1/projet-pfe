@@ -26,8 +26,8 @@ class PanierController extends Controller
 
     public function ajouter(Request $request)
     {
-        $produit = Produit::findOrFail($request->produit_id);
-        $quantite = $request->quantite ?? 1;
+        $produit = Produit::findOrFail($request->input('produit_id'));
+        $quantite = $request->input('quantite', 1);
         
         // Vérifier le stock
         if ($produit->stock < $quantite) {
@@ -56,7 +56,7 @@ class PanierController extends Controller
         ]);
         
         $produit = Produit::findOrFail($produitId);
-        $quantite = $request->quantite;
+        $quantite = $request->input('quantite');
         
         // Vérifier le stock
         if ($produit->stock < $quantite) {
@@ -82,5 +82,13 @@ class PanierController extends Controller
         
         return redirect()->route('panier.index')
             ->with('success', 'Produit retiré du panier !');
+    }
+    
+    public function vider()
+    {
+        session()->forget('panier');
+        
+        return redirect()->route('panier.index')
+            ->with('success', 'Votre panier a été vidé !');
     }
 }
