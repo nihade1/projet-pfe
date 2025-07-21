@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'ArtisanMarket') }}</title>
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,7 +18,7 @@
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
         <style>
             body {
-                background: linear-gradient(135deg, rgba(94, 53, 119, 0.1) 0%, rgba(244, 162, 97, 0.1) 100%);
+                background-color: #EDE2CE;
                 min-height: 100vh;
                 display: flex;
                 flex-direction: column;
@@ -31,13 +32,13 @@
                 margin: 2rem auto;
             }
             .auth-header {
-                background: linear-gradient(135deg, #5e3577 0%, #8a4baf 100%);
+                background-color: #007A75;
                 color: white;
                 text-align: center;
                 padding: 2rem 0;
             }
             .auth-logo {
-                max-width: 200px;
+                max-width: 250px; /* Logo agrandi */
                 margin-bottom: 1rem;
             }
             .auth-body {
@@ -54,7 +55,7 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
                     <a class="navbar-brand" href="{{ route('index') }}">
-                        <img src="{{ asset('images/logo.svg') }}" alt="ArtisanMarket Logo">
+                        <img src="{{ asset('images/logo.png') }}" alt="ArtisanMarket Logo">
                     </a>
                 </div>
             </nav>
@@ -64,7 +65,7 @@
             <div class="container">
                 <div class="auth-card">
                     <div class="auth-header">
-                        <img src="{{ asset('images/logo.svg') }}" alt="ArtisanMarket" class="auth-logo">
+                        <img src="{{ asset('images/logo.png') }}" alt="ArtisanMarket" class="auth-logo">
                         <h4>Bienvenue sur ArtisanMarket</h4>
                     </div>
                     <div class="auth-body">

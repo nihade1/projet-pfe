@@ -1,10 +1,10 @@
 /* Couleurs personnalisées */
 :root {
-    --primary-color: #5e3577; /* Violet pour la couleur principale */
-    --secondary-color: #f4a261; /* Orange pour les accents */
+    --primary-color: #007A75; /* Turquoise pour la couleur principale */
+    --secondary-color: #00A99E; /* Turquoise clair pour les accents */
     --text-color: #333; /* Texte foncé */
-    --bg-light: #f8f9fa; /* Fond clair */
-    --footer-bg: #2d2241; /* Fond du footer plus foncé */
+    --bg-light: #EDE2CE; /* Fond beige clair */
+    --footer-bg: #005C59; /* Fond du footer plus foncé (turquoise foncé) */
     --footer-text: #fff; /* Texte du footer */
 }
 
@@ -15,6 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+    background-color: var(--bg-light); /* Fond beige clair */
 }
 
 main {
@@ -23,13 +24,17 @@ main {
 
 /* Navbar */
 .navbar {
-    background-color: white !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 0.8rem 1rem;
+    background-color: #EDE2CE !important; /* Couleur beige comme l'arrière-plan */
+    box-shadow: none;
+    padding: 1rem;
 }
 
 .navbar-brand img {
-    height: 50px;
+    height: 70px; /* Logo agrandi */
+    margin: 5px 0; /* Un peu d'espace autour du logo */
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .navbar-nav {
@@ -47,6 +52,23 @@ main {
     color: var(--primary-color) !important;
 }
 
+/* Style pour la page active dans le menu */
+.nav-link.active {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.25rem;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
 /* Boutons */
 .btn-primary {
     background-color: var(--primary-color);
@@ -54,8 +76,8 @@ main {
 }
 
 .btn-primary:hover {
-    background-color: #4a2a5e; /* Plus foncé au survol */
-    border-color: #4a2a5e;
+    background-color: #005C59; /* Turquoise plus foncé au survol */
+    border-color: #005C59;
 }
 
 .btn-outline-primary {
@@ -87,8 +109,8 @@ main {
     position: absolute;
     top: -8px;
     right: -8px;
-    background-color: var(--secondary-color);
-    color: white;
+    background-color: #FEF8E9;
+    color: #0066cc;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -112,6 +134,8 @@ footer {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 10px;
     overflow: hidden;
+    border: none;
+    background-color: white;
 }
 
 .card:hover {
@@ -119,19 +143,67 @@ footer {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Bannière d'accueil */
-.hero-banner {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #8a4baf 100%);
-    color: white;
-    padding: 3rem 0;
-    border-radius: 10px;
-    margin-bottom: 2rem;
+.card .card-body {
+    padding: 2rem;
 }
 
-/* Style pour la page active dans le menu */
-.nav-link.active {
-    color: var(--primary-color) !important;
-    font-weight: 600;
+/* Bannière d'accueil */
+.hero-banner {
+    background-color: #EDE2CE; /* Fond beige comme l'arrière-plan */
+    color: var(--text-color);
+    padding: 4rem 0;
+    border-radius: 0;
+    margin-bottom: 3rem;
+    margin-top: -1px; /* Élimine tout écart entre le header et la bannière */
+}
+
+/* Styles pour les boutons de la bannière */
+.hero-banner .btn-light {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+}
+
+.hero-banner .btn-outline-light {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+}
+
+.hero-banner h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Meilleure transition entre la bannière et les sections suivantes */
+main > .container:first-child {
+    padding-top: 2rem;
+}
+
+/* Styles pour les titres de sections */
+h2.section-title {
+    margin-bottom: 2rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+h2.section-title::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Utilitaires */
@@ -144,5 +216,49 @@ footer {
 }
 
 .bg-primary-light {
-    background-color: rgba(94, 53, 119, 0.1);
+    background-color: rgba(0, 122, 117, 0.1);
+}
+
+/* Styles pour les boutons de formulaires d'authentification */
+.x-primary-button,
+button[type="submit"] {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.x-primary-button:hover,
+button[type="submit"]:hover {
+    background-color: #004d99 !important;
+}
+
+/* Style pour le lien "Mot de passe oublié" */
+.underline {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.underline:hover {
+    text-decoration: underline;
+    color: #005C59;
+}
+
+/* Style spécifique pour le bouton de connexion */
+.login-button {
+    background-color: #007A75 !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 600 !important;
+    padding: 0.6rem 2rem !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.login-button:hover {
+    background-color: #005C59 !important;
+    box-shadow: 0 4px 8px rgba(0, 92, 89, 0.2) !important;
 }

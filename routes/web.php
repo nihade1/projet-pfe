@@ -29,11 +29,13 @@ Route::get('/boutiques/{boutique}', [BoutiqueController::class, 'afficher'])->na
 Route::post('/boutiques/{boutique}/avis', [BoutiqueController::class, 'enregistrerAvis'])->name('boutiques.avis');
 
 // Routes pour le panier
-Route::get('/panier', [PanierController::class, 'index'])->name('panier.index');
-Route::post('/panier/ajouter', [PanierController::class, 'ajouter'])->name('panier.ajouter');
-Route::put('/panier/{produit}', [PanierController::class, 'mettreAJour'])->name('panier.mettreAJour');
-Route::delete('/panier', [PanierController::class, 'vider'])->name('panier.vider');
-Route::delete('/panier/{produit}', [PanierController::class, 'supprimer'])->name('panier.supprimer');
+Route::middleware('auth')->group(function () {
+    Route::get('/panier', [PanierController::class, 'index'])->name('panier.index');
+    Route::post('/panier/ajouter', [PanierController::class, 'ajouter'])->name('panier.ajouter');
+    Route::put('/panier/{produit}', [PanierController::class, 'mettreAJour'])->name('panier.mettreAJour');
+    Route::delete('/panier', [PanierController::class, 'vider'])->name('panier.vider');
+    Route::delete('/panier/{produit}', [PanierController::class, 'supprimer'])->name('panier.supprimer');
+});
 
 // Routes pour les commandes
 Route::get('/commandes', [CommandeController::class, 'index'])->name('commandes.index');

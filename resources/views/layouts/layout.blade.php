@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'ArtisanMarket - Marketplace Artisanale')</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
@@ -14,7 +15,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('index') }}">
-                    <img src="{{ asset('images/logo.svg') }}" alt="ArtisanMarket Logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ArtisanMarket Logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -31,7 +32,9 @@
                             <a class="nav-link {{ request()->routeIs('produits.*') ? 'active' : '' }}" href="{{ route('produits.index') }}">Produits</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('panier.*') ? 'active' : '' }} cart-icon" href="{{ route('panier.index') }}">
+                            <a class="nav-link {{ request()->routeIs('panier.*') ? 'active' : '' }} cart-icon" 
+                               href="{{ Auth::check() ? route('panier.index') : route('login') }}"
+                               title="{{ Auth::check() ? 'Voir mon panier' : 'Connectez-vous pour accéder à votre panier' }}">
                                 <i class="fas fa-shopping-cart"></i> Panier
                                 @if(session()->has('panier') && count(session('panier')) > 0)
                                     <span class="cart-badge">{{ count(session('panier')) }}</span>
@@ -100,6 +103,16 @@
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+            tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
     
     @stack('scripts')
 </body>

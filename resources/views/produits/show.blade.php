@@ -70,23 +70,44 @@
                 </p>
             </div>
             
-            <form method="POST" action="{{ route('panier.ajouter') }}" class="mb-4">
-                @csrf
-                <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                <div class="row g-2 align-items-center">
-                    <div class="col-4">
-                        <div class="input-group">
-                            <span class="input-group-text">Qté</span>
-                            <input type="number" class="form-control" name="quantite" value="1" min="1" max="{{ $produit->stock }}" {{ $produit->stock <= 0 ? 'disabled' : '' }}>
+            @auth
+                <form method="POST" action="{{ route('panier.ajouter') }}" class="mb-4">
+                    @csrf
+                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-4">
+                            <div class="input-group">
+                                <span class="input-group-text">Qté</span>
+                                <input type="number" class="form-control" name="quantite" value="1" min="1" max="{{ $produit->stock }}" {{ $produit->stock <= 0 ? 'disabled' : '' }}>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <button type="submit" class="btn btn-success w-100" {{ $produit->stock <= 0 ? 'disabled' : '' }}>
+                                <i class="fas fa-shopping-cart me-2"></i> Ajouter au panier
+                            </button>
                         </div>
                     </div>
-                    <div class="col-8">
-                        <button type="submit" class="btn btn-success w-100" {{ $produit->stock <= 0 ? 'disabled' : '' }}>
-                            <i class="fas fa-shopping-cart me-2"></i> Ajouter au panier
-                        </button>
+                </form>
+            @else
+                <div class="mb-4">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-4">
+                            <div class="input-group">
+                                <span class="input-group-text">Qté</span>
+                                <input type="number" class="form-control" value="1" min="1" disabled>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <a href="{{ route('login') }}" class="btn btn-success w-100" title="Connectez-vous pour ajouter au panier">
+                                <i class="fas fa-shopping-cart me-2"></i> Ajouter au panier
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <small class="text-muted">Vous devez être connecté pour ajouter des produits au panier</small>
                     </div>
                 </div>
-            </form>
+            @endauth
             
             <div class="card mb-4">
                 <div class="card-header">

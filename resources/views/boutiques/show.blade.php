@@ -87,14 +87,20 @@
                                 </div>
                                 <div class="card-footer bg-white border-top-0">
                                     <a href="{{ route('produits.afficher', $produit) }}" class="btn btn-sm btn-outline-primary">Voir détails</a>
-                                    <form method="POST" action="{{ route('panier.ajouter') }}" class="d-inline">
-                                        @csrf
-                                        <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                                        <input type="hidden" name="quantite" value="1">
-                                        <button type="submit" class="btn btn-sm btn-success">
+                                    @auth
+                                        <form method="POST" action="{{ route('panier.ajouter') }}" class="d-inline">
+                                            @csrf
+                                            <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                                            <input type="hidden" name="quantite" value="1">
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                                            </button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('login') }}" class="btn btn-sm btn-success" title="Connectez-vous pour ajouter au panier">
                                             <i class="fas fa-shopping-cart"></i> Ajouter au panier
-                                        </button>
-                                    </form>
+                                        </a>
+                                    @endauth
                                 </div>
                             </div>
                         </div>

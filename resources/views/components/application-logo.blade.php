@@ -1,12 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" {{ $attributes }}>
-  <style>
-    .logo-text { font-family: 'Arial', sans-serif; font-weight: bold; }
-    .primary { fill: #5e3577; }
-    .secondary { fill: #f4a261; }
-  </style>
-  <g transform="translate(0, 38)">
-    <text x="5" y="0" class="logo-text primary" font-size="24">Artisan</text>
-    <text x="95" y="0" class="logo-text secondary" font-size="24">Market</text>
-  </g>
-  <path class="primary" d="M10,10 C10,5 15,5 20,8 C25,11 30,15 35,8 C40,1 45,5 45,10" stroke="#5e3577" stroke-width="2" fill="none"/>
-</svg>
+<img src="{{ asset('images/logo.png') }}" alt="ArtisanMarket Logo" {{ $attributes }}>

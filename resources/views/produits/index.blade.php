@@ -19,21 +19,27 @@
             @forelse ($produits as $produit)
                 <div class="col-md-3 mb-4">
                     <div class="card h-100">
-                        <img src="{{ $produit->image ? asset('storage/'.$produit->image) : asset('images/default-product.jpg') }}" class="card-img-top" alt="{{ $produit->name }}">
+                        <img src="{{ $produit->photo ? asset('storage/'.$produit->photo) : asset('images/default-product.jpg') }}" class="card-img-top" alt="{{ $produit->nom }}">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $produit->name }}</h5>
+                            <h5 class="card-title">{{ $produit->nom }}</h5>
                             <p class="card-text text-truncate">{{ $produit->description }}</p>
-                            <p class="card-text fw-bold">{{ number_format($produit->price, 2) }} €</p>
+                            <p class="card-text fw-bold">{{ number_format($produit->prix, 2) }} €</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{ route('produits.afficher', $produit) }}" class="btn btn-sm btn-primary">Voir détails</a>
-                                <form action="{{ route('panier.ajouter') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $produit->id }}">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="btn btn-sm btn-success">
+                                @auth
+                                    <form action="{{ route('panier.ajouter') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                                        <input type="hidden" name="quantite" value="1">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i class="fas fa-cart-plus"></i> Ajouter
+                                        </button>
+                                    </form>
+                                @else
+                                    <a href="{{ route('login') }}" class="btn btn-sm btn-success" title="Connectez-vous pour ajouter au panier">
                                         <i class="fas fa-cart-plus"></i> Ajouter
-                                    </button>
-                                </form>
+                                    </a>
+                                @endauth
                             </div>
                         </div>
                     </div>
