@@ -27,10 +27,10 @@
             </div>
             
             <div class="mb-3">
-                @if($boutique->avis && $boutique->avis->count() > 0)
+                @if($avis && $avis->count() > 0)
                     @php
-                        $moyenne = $boutique->avis->avg('note');
-                        $nbAvis = $boutique->avis->count();
+                        $moyenne = $avis->avg('note');
+                        $nbAvis = $avis->count();
                     @endphp
                     <div class="d-flex align-items-center">
                         @for($i = 1; $i <= 5; $i++)
@@ -73,8 +73,8 @@
                     @foreach($boutique->produits as $produit)
                         <div class="col">
                             <div class="card h-100 shadow-sm">
-                                @if($produit->photos->first())
-                                    <img src="{{ asset('storage/' . $produit->photos->first()->chemin) }}" class="card-img-top" alt="{{ $produit->nom }}" style="height: 200px; object-fit: cover;">
+                                @if($produit->photo)
+                                    <img src="{{ asset('storage/' . $produit->photo) }}" class="card-img-top" alt="{{ $produit->nom }}" style="height: 200px; object-fit: cover;">
                                 @else
                                     <div class="bg-light text-center p-5">
                                         <i class="fas fa-box fa-3x text-secondary"></i>
@@ -115,23 +115,23 @@
 
         <!-- Avis -->
         <div class="tab-pane fade" id="reviews" role="tabpanel">
-            @if($boutique->avis && $boutique->avis->count() > 0)
+            @if($avis && $avis->count() > 0)
                 <div class="list-group mb-4">
-                    @foreach($boutique->avis as $avis)
+                    @foreach($avis as $avisItem)
                         <div class="list-group-item">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <strong>{{ $avis->user->name }}</strong>
-                                    <span class="text-muted ms-2">{{ $avis->created_at->format('d/m/Y') }}</span>
+                                    <strong>{{ $avisItem->user->name }}</strong>
+                                    <span class="text-muted ms-2">{{ $avisItem->created_at->format('d/m/Y') }}</span>
                                 </div>
                                 <div>
                                     @for($i = 1; $i <= 5; $i++)
-                                        <i class="fas fa-star {{ $i <= $avis->note ? 'text-warning' : 'text-muted' }}"></i>
+                                        <i class="fas fa-star {{ $i <= $avisItem->note ? 'text-warning' : 'text-muted' }}"></i>
                                     @endfor
                                 </div>
                             </div>
-                            @if($avis->commentaire)
-                                <p class="mt-2 mb-0">{{ $avis->commentaire }}</p>
+                            @if($avisItem->commentaire)
+                                <p class="mt-2 mb-0">{{ $avisItem->commentaire }}</p>
                             @endif
                         </div>
                     @endforeach

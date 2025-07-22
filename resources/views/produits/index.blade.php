@@ -6,14 +6,47 @@
     <div class="container">
         <h1 class="mb-4">Tous les produits</h1>
         
+        <!-- Section de filtrage par catégorie -->
         <div class="row mb-4">
             <div class="col-md-12">
-                <form action="{{ route('recherche') }}" method="GET" class="d-flex">
-                    <input type="text" name="requete" class="form-control me-2" placeholder="Rechercher un produit..." value="{{ request('requete') }}">
-                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                <h5 class="mb-3"><i class="fas fa-filter me-2"></i>Rechercher par catégorie</h5>
+                <form action="{{ route('produits.index') }}" method="GET">
+                    <select name="categorie" class="form-select" onchange="this.form.submit()">
+                        <option value="">Toutes les catégories</option>
+                        @foreach($categories as $categorie)
+                            <option value="{{ $categorie->id }}" {{ request('categorie') == $categorie->id ? 'selected' : '' }}>
+                                {{ $categorie->nom }}
+                            </option>
+                        @endforeach
+                    </select>
                 </form>
             </div>
         </div>
+
+        <!-- Affichage du filtre actif -->
+        @if(request('categorie'))
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="d-flex align-items-center">
+                        <span class="me-2">Filtre actif :</span>
+                        @php
+                            $categorieActive = $categories->find(request('categorie'));
+                        @endphp
+                        @if($categorieActive)
+                            <span class="badge bg-success me-2">
+                                {{ $categorieActive->nom }}
+                                <a href="{{ route('produits.index') }}" class="text-white ms-1">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </span>
+                        @endif
+                        <a href="{{ route('produits.index') }}" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-times"></i> Afficher tous les produits
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
         
         <div class="row">
             @forelse ($produits as $produit)
@@ -53,8 +86,9 @@
             @endforelse
         </div>
         
+        <!-- Pagination avec conservation des filtres -->
         <div class="d-flex justify-content-center mt-4">
-            {{ $produits->links() }}
+            {{ $produits->appends(request()->query())->links() }}
         </div>
     </div>
 @endsection

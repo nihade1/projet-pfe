@@ -24,11 +24,21 @@ class Boutique extends Model
     }
     
     /**
-     * Obtient les avis associés à cette boutique
+     * Obtient les avis associés à cette boutique via ses produits
      */
-    public function avis(): HasMany
+    public function avis()
     {
-        return $this->hasMany(Avis::class);
+        // Récupère les IDs des produits de cette boutique
+        $produitIds = $this->produits()->pluck('id')->toArray();
+        
+        if (empty($produitIds)) {
+            // Si aucun produit n'existe encore, retourner une collection vide
+            return Avis::whereRaw('1 = 0');
+        }
+        
+        return Avis::whereHas('produit', function ($query) use ($produitIds) {
+            $query->whereIn('id', $produitIds);
+        });
     }
     
     /**

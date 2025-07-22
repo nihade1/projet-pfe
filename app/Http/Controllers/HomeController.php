@@ -24,8 +24,10 @@ class HomeController extends Controller
             ->take(6)
             ->get();
         
-        // Récupérer les catégories
-        $categories = Categorie::all();
+        // Récupérer les catégories avec le nombre de produits
+        $categories = Categorie::withCount(['produits' => function($query) {
+            $query->where('stock', '>', 0);
+        }])->get();
         
         return view('index', compact('produitsMisEnAvant', 'boutiques', 'categories'));
     }

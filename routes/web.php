@@ -23,6 +23,9 @@ Route::get('/produits', [ProduitController::class, 'index'])->name('produits.ind
 Route::get('/produits/{produit}', [ProduitController::class, 'afficher'])->name('produits.afficher');
 Route::post('/produits/{produit}/avis', [ProduitController::class, 'enregistrerAvis'])->name('produits.avis');
 
+// Routes pour les catégories
+Route::get('/categories/{categorie}', [ProduitController::class, 'parCategorie'])->name('categories.produits');
+
 // Routes pour les boutiques (interface publique)
 Route::get('/boutiques', [BoutiqueController::class, 'index'])->name('boutiques.index');
 Route::get('/boutiques/{boutique}', [BoutiqueController::class, 'afficher'])->name('boutiques.afficher');
