@@ -262,3 +262,38 @@ button[type="submit"]:hover {
     background-color: #005C59 !important;
     box-shadow: 0 4px 8px rgba(0, 92, 89, 0.2) !important;
 }
+
+/* Styles pour les cartes de catégorie */
+.category-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: white;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 122, 117, 0.15) !important;
+}
+
+.category-card .card-body {
+    padding: 1.5rem 1rem;
+}
+
+.category-icon i {
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-icon i {
+    transform: scale(1.1);
+}
+
+.category-card .card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.category-card:hover .card-title {
+    color: var(--primary-color);
+}

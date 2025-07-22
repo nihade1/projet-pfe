@@ -31,6 +31,21 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('produits.*') ? 'active' : '' }}" href="{{ route('produits.index') }}">Produits</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs('categories.*') ? 'active' : '' }}" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown">
+                                Catégories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('produits.index') }}">Toutes les catégories</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                @php
+                                    $categories = \App\Models\Categorie::all();
+                                @endphp
+                                @foreach($categories as $cat)
+                                    <li><a class="dropdown-item" href="{{ route('categories.produits', $cat) }}">{{ $cat->nom }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('panier.*') ? 'active' : '' }} cart-icon" 
                                href="{{ Auth::check() ? route('panier.index') : route('login') }}"

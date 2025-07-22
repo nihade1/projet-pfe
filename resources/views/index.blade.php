@@ -61,36 +61,63 @@
     </div>
 </div>
 
-<div class="container-fluid py-5 mb-5" style="background-color: #FEF8E9;">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <h2 class="fw-bold mb-3">Vous êtes artisan ?</h2>
-                <p class="mb-4">Créez votre boutique en ligne et présentez vos créations à notre communauté. Bénéficiez d'une plateforme dédiée à l'artisanat et développez votre activité.</p>
-                <a href="{{ route('register') }}" class="btn btn-primary">Créer ma boutique</a>
-            </div>
-            <div class="col-lg-6">
-                <div class="card border-0 shadow">
-                    <div class="card-body p-4">
-                        <h3 class="card-title fw-bold mb-3">Les avantages pour les artisans</h3>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item bg-transparent d-flex align-items-center border-0 ps-0 py-2">
-                                <i class="fas fa-check-circle text-success me-2"></i> Visibilité auprès d'une clientèle ciblée
-                            </li>
-                            <li class="list-group-item bg-transparent d-flex align-items-center border-0 ps-0 py-2">
-                                <i class="fas fa-check-circle text-success me-2"></i> Gestion simplifiée de vos produits
-                            </li>
-                            <li class="list-group-item bg-transparent d-flex align-items-center border-0 ps-0 py-2">
-                                <i class="fas fa-check-circle text-success me-2"></i> Suivi de vos commandes en temps réel
-                            </li>
-                            <li class="list-group-item bg-transparent d-flex align-items-center border-0 ps-0 py-2">
-                                <i class="fas fa-check-circle text-success me-2"></i> Mise en avant de votre savoir-faire
-                            </li>
-                        </ul>
+<!-- Section Catégories -->
+<div class="container mb-5">
+    <h2 class="text-center section-title">Explorez nos catégories</h2>
+    <div class="row g-3">
+        @foreach($categories->take(8) as $categorie)
+            <div class="col-md-3 col-sm-6">
+                <a href="{{ route('categories.produits', $categorie) }}" class="text-decoration-none">
+                    <div class="card category-card h-100 text-center border-0 shadow-sm">
+                        <div class="card-body p-3">
+                            <div class="category-icon mb-2">
+                                @switch($categorie->nom)
+                                    @case('Décoration')
+                                        <i class="fas fa-home fa-2x text-primary"></i>
+                                        @break
+                                    @case('Bijoux faits main')
+                                        <i class="fas fa-gem fa-2x text-primary"></i>
+                                        @break
+                                    @case('Vêtements artisanaux')
+                                        <i class="fas fa-tshirt fa-2x text-primary"></i>
+                                        @break
+                                    @case('Accessoires en cuir')
+                                        <i class="fas fa-shopping-bag fa-2x text-primary"></i>
+                                        @break
+                                    @case('Céramiques')
+                                        <i class="fas fa-vase-plant fa-2x text-primary"></i>
+                                        @break
+                                    @case('Textiles tissés')
+                                        <i class="fas fa-cut fa-2x text-primary"></i>
+                                        @break
+                                    @case('Cosmétiques naturels')
+                                        <i class="fas fa-spa fa-2x text-primary"></i>
+                                        @break
+                                    @case('Objets en bois')
+                                        <i class="fas fa-tree fa-2x text-primary"></i>
+                                        @break
+                                    @case('Papeterie & Cartes')
+                                        <i class="fas fa-envelope fa-2x text-primary"></i>
+                                        @break
+                                    @case('Produits locaux (épices, miel, etc.)')
+                                        <i class="fas fa-seedling fa-2x text-primary"></i>
+                                        @break
+                                    @default
+                                        <i class="fas fa-star fa-2x text-primary"></i>
+                                @endswitch
+                            </div>
+                            <h6 class="card-title mb-1">{{ $categorie->nom }}</h6>
+                            <small class="text-muted">{{ $categorie->produits_count }} produit(s)</small>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-        </div>
+        @endforeach
+    </div>
+    <div class="text-center mt-4">
+        <a href="{{ route('produits.index') }}" class="btn btn-outline-primary">
+            Voir toutes les catégories <i class="fas fa-arrow-right ms-1"></i>
+        </a>
     </div>
 </div>
 @endsection
