@@ -77,7 +77,7 @@
                                     @error('photo')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                    <div class="form-text">Format recommandé: JPG, PNG. Taille maximale: 2 MB.</div>
+                                    <div class="form-text">Format recommandé: JPG, PNG.</div>
                                 </div>
                             </div>
                         </div>

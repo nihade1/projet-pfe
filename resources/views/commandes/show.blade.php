@@ -82,9 +82,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-center align-middle">{{ number_format($article->prix_unitaire, 2) }} €</td>
+                                        <td class="text-center align-middle">{{ number_format($article->prix_unitaire, 2) }} MAD</td>
                                         <td class="text-center align-middle">{{ $article->quantite }}</td>
-                                        <td class="text-center align-middle">{{ number_format($article->prix_unitaire * $article->quantite, 2) }} €</td>
+                                        <td class="text-center align-middle">{{ number_format($article->prix_unitaire * $article->quantite, 2) }} MAD</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -104,16 +104,16 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-2">
                         <span>Sous-total:</span>
-                        <span>{{ number_format($commande->montant_total, 2) }} €</span>
+                        <span>{{ number_format($commande->montant_total, 2) }} MAD</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Frais de livraison:</span>
-                        <span>{{ number_format(0, 2) }} €</span>
+                        <span>{{ number_format(0, 2) }} MAD</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between fw-bold">
                         <span>Total:</span>
-                        <span>{{ number_format($commande->montant_total, 2) }} €</span>
+                        <span>{{ number_format($commande->montant_total, 2) }} MAD</span>
                     </div>
                 </div>
             </div>

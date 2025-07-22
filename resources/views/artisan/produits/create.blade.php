@@ -71,7 +71,7 @@
                                     @error('photo')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                    <div class="form-text">Format recommandé: JPG, PNG. Taille maximale: 2 MB.</div>
+                                    <div class="form-text">Format recommandé: JPG, PNG.</div>
                                 </div>
                                 
                                 <div id="image-preview" class="text-center mt-3" style="display: none;">
@@ -100,10 +100,10 @@
                             
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="prix" class="form-label">Prix (€) <span class="text-danger">*</span></label>
+                                    <label for="prix" class="form-label">Prix (MAD) <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="number" class="form-control @error('prix') is-invalid @enderror" id="prix" name="prix" value="{{ old('prix') }}" step="0.01" min="0" required>
-                                        <span class="input-group-text">€</span>
+                                        <span class="input-group-text">MAD</span>
                                         @error('prix')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

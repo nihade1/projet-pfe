@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -50,13 +51,19 @@ class RegisteredUserController extends Controller
         
         // Si l'utilisateur est un artisan, créer un profil artisan et rediriger vers la création de boutique
         if ($user->role === 'artisan') {
-            Artisan::create([
-                'user_id' => $user->id,
-            ]);
-            
-            return redirect(route('artisan.boutique.creer'));
+            try {
+                Artisan::create([
+                    'user_id' => $user->id,
+                ]);
+                
+                return redirect()->route('artisan.boutique.creer')->with('success', 'Inscription réussie ! Créez maintenant votre boutique.');
+            } catch (\Exception $e) {
+                // En cas d'erreur, loguer et rediriger avec un message d'erreur
+                Log::error('Erreur création artisan: ' . $e->getMessage());
+                return redirect()->route('register')->with('error', 'Erreur lors de la création du profil artisan: ' . $e->getMessage());
+            }
         }
 
-        return redirect(route('index'));
+        return redirect()->route('index')->with('success', 'Inscription réussie ! Bienvenue sur ArtisanMarket.');
     }
 }

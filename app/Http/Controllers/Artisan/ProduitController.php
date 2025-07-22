@@ -58,7 +58,7 @@ class ProduitController extends Controller
             'prix' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'categorie_id' => 'required|exists:categories,id',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
         $artisan = Auth::user()->artisan;
@@ -114,7 +114,7 @@ class ProduitController extends Controller
             'prix' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'categorie_id' => 'required|exists:categories,id',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
         $artisan = Auth::user()->artisan;

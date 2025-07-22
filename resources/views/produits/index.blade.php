@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $produit->nom }}</h5>
                             <p class="card-text text-truncate">{{ $produit->description }}</p>
-                            <p class="card-text fw-bold">{{ number_format($produit->prix, 2) }} €</p>
+                            <p class="card-text fw-bold">{{ number_format($produit->prix, 2) }} MAD</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{ route('produits.afficher', $produit) }}" class="btn btn-sm btn-primary">Voir détails</a>
                                 @auth

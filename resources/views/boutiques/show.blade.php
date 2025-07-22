@@ -83,7 +83,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $produit->nom }}</h5>
                                     <p class="card-text text-muted">{{ \Illuminate\Support\Str::limit($produit->description, 80) }}</p>
-                                    <p class="card-text fw-bold">{{ number_format($produit->prix, 2) }} €</p>
+                                    <p class="card-text fw-bold">{{ number_format($produit->prix, 2) }} MAD</p>
                                 </div>
                                 <div class="card-footer bg-white border-top-0">
                                     <a href="{{ route('produits.afficher', $produit) }}" class="btn btn-sm btn-outline-primary">Voir détails</a>

@@ -64,7 +64,7 @@
             </div>
             
             <div class="mb-4">
-                <h2 class="h1 text-primary">{{ number_format($produit->prix, 2) }} €</h2>
+                <h2 class="h1 text-primary">{{ number_format($produit->prix, 2) }} MAD</h2>
                 <p class="text-muted">
                     {{ $produit->stock > 0 ? 'En stock (' . $produit->stock . ' disponibles)' : 'Épuisé' }}
                 </p>
@@ -277,7 +277,7 @@
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title">{{ $produitRelie->nom }}</h5>
-                                <p class="card-text fw-bold text-primary">{{ number_format($produitRelie->prix, 2) }} €</p>
+                                <p class="card-text fw-bold text-primary">{{ number_format($produitRelie->prix, 2) }} MAD</p>
                             </div>
                             <div class="card-footer bg-white border-top-0 pt-0">
                                 <a href="{{ route('produits.afficher', $produitRelie) }}" class="btn btn-outline-primary btn-sm">Voir le produit</a>

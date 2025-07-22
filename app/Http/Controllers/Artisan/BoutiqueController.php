@@ -33,7 +33,7 @@ class BoutiqueController extends Controller
         $request->validate([
             'nom' => 'required|string|max:100',
             'description' => 'required|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
         $artisan = Auth::user()->artisan;
@@ -98,7 +98,7 @@ class BoutiqueController extends Controller
         $request->validate([
             'nom' => 'required|string|max:100',
             'description' => 'required|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
         $artisan = Auth::user()->artisan;

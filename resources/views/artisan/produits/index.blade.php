@@ -138,7 +138,7 @@
                                                 </div>
                                             </td>
                                             <td>{{ $produit->categorie->nom }}</td>
-                                            <td class="text-end">{{ number_format($produit->prix, 2, ',', ' ') }} €</td>
+                                            <td class="text-end">{{ number_format($produit->prix, 2, ',', ' ') }} MAD</td>
                                             <td class="text-center">
                                                 @if($produit->stock <= 0)
                                                     <span class="badge bg-danger">Épuisé</span>

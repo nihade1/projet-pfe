@@ -61,7 +61,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-center align-middle">{{ number_format($produit->prix, 2) }} €</td>
+                                            <td class="text-center align-middle">{{ number_format($produit->prix, 2) }} MAD</td>
                                             <td class="text-center align-middle">
                                                 <form action="{{ route('panier.mettreAJour', $produit->id) }}" method="POST" class="d-inline">
                                                     @csrf
@@ -74,7 +74,7 @@
                                                     <button type="submit" class="btn btn-sm btn-outline-primary mt-2 w-100">Mettre à jour</button>
                                                 </form>
                                             </td>
-                                            <td class="text-center align-middle fw-bold">{{ number_format($produit->prix * $panier[$produit->id], 2) }} €</td>
+                                            <td class="text-center align-middle fw-bold">{{ number_format($produit->prix * $panier[$produit->id], 2) }} MAD</td>
                                             <td class="text-end align-middle">
                                                 <form action="{{ route('panier.supprimer', $produit->id) }}" method="POST" class="d-inline">
                                                     @csrf
@@ -115,16 +115,16 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-2">
                             <span>Sous-total:</span>
-                            <span>{{ number_format($total, 2) }} €</span>
+                            <span>{{ number_format($total, 2) }} MAD</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Frais de livraison:</span>
-                            <span>{{ number_format(0, 2) }} €</span>
+                            <span>{{ number_format(0, 2) }} MAD</span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between mb-4 fw-bold">
                             <span>Total:</span>
-                            <span>{{ number_format($total, 2) }} €</span>
+                            <span>{{ number_format($total, 2) }} MAD</span>
                         </div>
                         
                         <a href="{{ route('commandes.paiement') }}" class="btn btn-success w-100">
@@ -146,7 +146,7 @@
                         
                         <div class="d-flex align-items-center mb-2">
                             <i class="fas fa-truck text-success me-3"></i>
-                            <span>Livraison offerte à partir de 50€</span>
+                            <span>Livraison offerte à partir de 500 MAD</span>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <i class="fas fa-undo text-success me-3"></i>

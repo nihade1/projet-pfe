@@ -153,16 +153,16 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
                                     <h6 class="my-0">{{ $produit->nom }}</h6>
-                                    <small class="text-muted">{{ $panier[$produit->id] }} x {{ number_format($produit->prix, 2) }} €</small>
+                                    <small class="text-muted">{{ $panier[$produit->id] }} x {{ number_format($produit->prix, 2) }} MAD</small>
                                 </div>
-                                <span>{{ number_format($produit->prix * $panier[$produit->id], 2) }} €</span>
+                                <span>{{ number_format($produit->prix * $panier[$produit->id], 2) }} MAD</span>
                             </li>
                         @endforeach
                     </ul>
                     
                     <div class="d-flex justify-content-between mb-2">
                         <span>Sous-total:</span>
-                        <span>{{ number_format($total, 2) }} €</span>
+                        <span>{{ number_format($total, 2) }} MAD</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Frais de livraison:</span>
