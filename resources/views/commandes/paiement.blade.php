@@ -58,7 +58,7 @@
                             <div class="col-md-6">
                                 <label for="pays_livraison" class="form-label">Pays*</label>
                                 <input type="text" class="form-control @error('pays_livraison') is-invalid @enderror" 
-                                       id="pays_livraison" name="pays_livraison" value="{{ old('pays_livraison', 'France') }}" required>
+                                       id="pays_livraison" name="pays_livraison" value="{{ old('pays_livraison', 'Maroc') }}" required>
                                 @error('pays_livraison')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -75,62 +75,77 @@
                         
                         <div class="card mt-4 mb-4">
                             <div class="card-header bg-light">
-                                <h5 class="mb-0">Méthode de paiement</h5>
+                                <h5 class="mb-0">Informations de paiement</h5>
                             </div>
                             <div class="card-body">
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" type="radio" name="methode_paiement" id="carte" value="carte" checked>
-                                    <label class="form-check-label" for="carte">
-                                        <div class="d-flex align-items-center">
-                                            <span class="me-3">Carte bancaire</span>
-                                            <div class="d-flex gap-2">
-                                                <i class="fab fa-cc-visa fa-lg text-primary"></i>
-                                                <i class="fab fa-cc-mastercard fa-lg text-danger"></i>
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <h6 class="mb-0">Carte bancaire</h6>
+                                        <div class="d-flex gap-2 ms-3">
+                                            <i class="fab fa-cc-visa fa-lg text-primary"></i>
+                                            <i class="fab fa-cc-mastercard fa-lg text-danger"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="ps-0">
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <label for="nom_carte" class="form-label">Nom sur la carte*</label>
+                                                <input type="text" class="form-control @error('nom_carte') is-invalid @enderror" 
+                                                       id="nom_carte" name="nom_carte" value="{{ old('nom_carte') }}" 
+                                                       pattern="[A-Za-z\s]+" title="Le nom doit contenir uniquement des lettres et des espaces" required>
+                                                @error('nom_carte')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                                <small class="form-text text-muted">Entrez le nom tel qu'il apparaît sur votre carte</small>
                                             </div>
                                         </div>
-                                    </label>
-                                </div>
-                                
-                                <div id="carte_details" class="mb-4 ps-4">
-                                    <div class="row mb-3">
-                                        <div class="col-12">
-                                            <label for="nom_carte" class="form-label">Nom sur la carte</label>
-                                            <input type="text" class="form-control" id="nom_carte">
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <label for="numero_carte" class="form-label">Numéro de carte*</label>
+                                                <input type="text" class="form-control @error('numero_carte') is-invalid @enderror" 
+                                                       id="numero_carte" name="numero_carte" value="{{ old('numero_carte') }}" 
+                                                       placeholder="1234 5678 9012 3456" 
+                                                       pattern="[0-9\s]{13,19}" title="Le numéro de carte doit contenir entre 13 et 19 chiffres" 
+                                                       maxlength="19" required>
+                                                @error('numero_carte')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                                <small class="form-text text-muted">Format: XXXX XXXX XXXX XXXX</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="expiration" class="form-label">Date d'expiration*</label>
+                                                <input type="text" class="form-control @error('expiration') is-invalid @enderror" 
+                                                       id="expiration" name="expiration" value="{{ old('expiration') }}" 
+                                                       placeholder="MM/AA" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" 
+                                                       title="Format requis: MM/AA (par exemple 05/28)" maxlength="5" required>
+                                                @error('expiration')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                                <small class="form-text text-muted">Format: MM/AA</small>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cvv" class="form-label">CVV*</label>
+                                                <input type="text" class="form-control @error('cvv') is-invalid @enderror" 
+                                                       id="cvv" name="cvv" value="{{ old('cvv') }}" 
+                                                       placeholder="123" pattern="[0-9]{3,4}" 
+                                                       title="Le CVV doit contenir 3 ou 4 chiffres" maxlength="4" required>
+                                                @error('cvv')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                                <small class="form-text text-muted">3 ou 4 chiffres au dos de votre carte</small>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col-12">
-                                            <label for="numero_carte" class="form-label">Numéro de carte</label>
-                                            <input type="text" class="form-control" id="numero_carte" placeholder="1234 5678 9012 3456">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="expiration" class="form-label">Date d'expiration</label>
-                                            <input type="text" class="form-control" id="expiration" placeholder="MM/AA">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="cvv" class="form-label">CVV</label>
-                                            <input type="text" class="form-control" id="cvv" placeholder="123">
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="methode_paiement" id="paypal" value="paypal">
-                                    <label class="form-check-label" for="paypal">
-                                        <div class="d-flex align-items-center">
-                                            <span class="me-3">PayPal</span>
-                                            <i class="fab fa-paypal fa-lg text-info"></i>
-                                        </div>
-                                    </label>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-success">
-                                <i class="fas fa-lock me-2"></i> Passer la commande
+                                <i class="fas fa-lock me-2"></i> Confirmer le paiement
                             </button>
                             <a href="{{ route('panier.index') }}" class="btn btn-outline-secondary">
                                 <i class="fas fa-arrow-left me-2"></i> Retour au panier
@@ -166,12 +181,12 @@
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Frais de livraison:</span>
-                        <span>{{ number_format(0, 2) }} €</span>
+                        <span>{{ number_format(0, 2) }} MAD</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between mb-4 fw-bold">
                         <span>Total:</span>
-                        <span>{{ number_format($total, 2) }} €</span>
+                        <span>{{ number_format($total, 2) }} MAD</span>
                     </div>
                     
                     <div class="alert alert-info mb-0">
@@ -187,20 +202,81 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const radioCarte = document.getElementById('carte');
-    const radioPaypal = document.getElementById('paypal');
-    const carteDetails = document.getElementById('carte_details');
-    
-    radioPaypal.addEventListener('change', function() {
-        if(this.checked) {
-            carteDetails.style.display = 'none';
-        }
+    // Formatage automatique du numéro de carte
+    const numeroCarteInput = document.getElementById('numero_carte');
+    numeroCarteInput.addEventListener('input', function(e) {
+        // Supprimer tous les espaces
+        let value = e.target.value.replace(/\s+/g, '');
+        // Ajouter un espace tous les 4 caractères
+        value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+        // Mettre à jour la valeur du champ
+        e.target.value = value;
     });
     
-    radioCarte.addEventListener('change', function() {
-        if(this.checked) {
-            carteDetails.style.display = 'block';
+    // Formatage automatique de la date d'expiration
+    const expirationInput = document.getElementById('expiration');
+    expirationInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Garder uniquement les chiffres
+        
+        if (value.length >= 2) {
+            // Ajouter un / après les 2 premiers chiffres
+            value = value.substring(0, 2) + '/' + value.substring(2, 4);
         }
+        
+        // Mettre à jour la valeur du champ
+        e.target.value = value;
+    });
+    
+    // Limiter le CVV à des chiffres uniquement
+    const cvvInput = document.getElementById('cvv');
+    cvvInput.addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/\D/g, '');
+    });
+    
+    // Validation du nom sur la carte (lettres et espaces uniquement)
+    const nomCarteInput = document.getElementById('nom_carte');
+    nomCarteInput.addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/[^A-Za-z\s]/g, '');
+    });
+    
+    // Validation du formulaire avant soumission
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        // Vérifier le numéro de carte
+        const numeroCarteValue = numeroCarteInput.value.replace(/\s+/g, '');
+        if (numeroCarteValue.length < 13 || numeroCarteValue.length > 19) {
+            alert('Le numéro de carte doit contenir entre 13 et 19 chiffres.');
+            e.preventDefault();
+            return false;
+        }
+        
+        // Vérifier la date d'expiration
+        const expirationValue = expirationInput.value;
+        if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expirationValue)) {
+            alert('La date d\'expiration doit être au format MM/AA.');
+            e.preventDefault();
+            return false;
+        }
+        
+        // Vérifier l'année d'expiration (pas dans le passé)
+        const [month, year] = expirationValue.split('/');
+        const expDate = new Date(2000 + parseInt(year), parseInt(month) - 1);
+        const now = new Date();
+        if (expDate < now) {
+            alert('La date d\'expiration est déjà passée.');
+            e.preventDefault();
+            return false;
+        }
+        
+        // Vérifier le CVV
+        const cvvValue = cvvInput.value;
+        if (cvvValue.length < 3 || cvvValue.length > 4) {
+            alert('Le CVV doit contenir 3 ou 4 chiffres.');
+            e.preventDefault();
+            return false;
+        }
+        
+        return true;
     });
 });
 </script>

@@ -101,7 +101,7 @@
                                         <th scope="col">Date</th>
                                         <th scope="col">Client</th>
                                         <th scope="col" class="text-end">Montant</th>
-                                        <th scope="col" class="text-center">Statut</th>
+                                        <th scope="col" class="text-center">Statut du paiement</th>
                                         <th scope="col" class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -115,7 +115,9 @@
                                                 {{ number_format($commande->montant_boutique, 2, ',', ' ') }} €
                                             </td>
                                             <td class="text-center">
-                                                @if($commande->statut_boutique == 'en_attente')
+                                                @if($commande->statut == 'payé')
+                                                    <span class="badge bg-success">Payée</span>
+                                                @elseif($commande->statut_boutique == 'en_attente')
                                                     <span class="badge bg-warning text-dark">En attente</span>
                                                 @elseif($commande->statut_boutique == 'en_preparation')
                                                     <span class="badge bg-info">En préparation</span>

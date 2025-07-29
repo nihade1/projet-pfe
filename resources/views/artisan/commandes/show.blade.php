@@ -102,7 +102,7 @@
                             <tbody>
                                 @php $totalBoutique = 0; @endphp
                                 @foreach($articles as $article)
-                                    @php $totalBoutique += $article->prix_unitaire * $article->quantite; @endphp
+                                    @php $totalBoutique += $article->prix * $article->quantite; @endphp
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
@@ -130,8 +130,8 @@
                                             </div>
                                         </td>
                                         <td class="text-center">{{ $article->quantite }}</td>
-                                        <td class="text-end">{{ number_format($article->prix_unitaire, 2, ',', ' ') }} €</td>
-                                        <td class="text-end">{{ number_format($article->prix_unitaire * $article->quantite, 2, ',', ' ') }} €</td>
+                                        <td class="text-end">{{ number_format($article->prix, 2, ',', ' ') }} €</td>
+                                        <td class="text-end">{{ number_format($article->prix * $article->quantite, 2, ',', ' ') }} €</td>
                                         <td class="text-center">
                                             @if($article->statut == 'en_attente')
                                                 <span class="badge bg-warning text-dark">En attente</span>

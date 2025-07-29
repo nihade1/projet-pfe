@@ -26,4 +26,9 @@ class Produit extends Model
     {
         return $this->hasMany(Avis::class);
     }
+    
+    public function articleCommandes(): HasMany
+    {
+        return $this->hasMany(ArticleCommande::class);
+    }
 }

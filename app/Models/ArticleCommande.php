@@ -11,7 +11,7 @@ class ArticleCommande extends Model
         'commande_id', 
         'produit_id', 
         'quantite', 
-        'prix_unitaire',
+        'prix',
         'statut'
     ];
 

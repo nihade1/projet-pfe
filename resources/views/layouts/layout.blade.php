@@ -64,17 +64,32 @@
                     <a class="nav-link" href="{{ route('register') }}">Créer un compte</a>
                 </li>
                 @else
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{ Auth::user()->name }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Déconnexion
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        {{ Auth::user()->name }}
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{{ route('profile.dashboard') }}">Mon profil</a></li>
+                        
+                        @if(Auth::user()->isCustomer())
+                        <li><a class="dropdown-item" href="{{ route('commandes.index') }}">Mes commandes</a></li>
+                        @endif
+                        
+                        @if(Auth::user()->isArtisan())
+                        <li><a class="dropdown-item" href="{{ route('artisan.tableau-de-bord') }}">Tableau de bord artisan</a></li>
+                        @endif
+                        
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Déconnexion
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
                 </li>
                 @endguest
             </ul>
@@ -130,5 +145,6 @@
     </script>
     
     @stack('scripts')
+    @yield('scripts')
 </body>
 </html>

@@ -71,7 +71,74 @@ class BoutiqueController extends Controller
         $produits = $boutique->produits()->latest()->get();
         $commandes = $boutique->commandes()->orderBy('created_at', 'desc')->take(5)->get();
         
-        return view('artisan.boutique.dashboard', compact('boutique', 'produits', 'commandes'));
+        // Récupérer le nombre d'avis pour la boutique
+        $nombreAvis = $boutique->avis()->count();
+        
+        // Calculer le revenu total
+        $revenuTotal = 0;
+        foreach ($commandes as $commande) {
+            $revenuCommande = $commande->articles()
+                ->whereHas('produit', function($query) use ($boutique) {
+                    $query->where('boutique_id', $boutique->id);
+                })
+                ->sum(\DB::raw('prix * quantite'));
+            
+            $revenuTotal += $revenuCommande;
+        }
+        
+        // Récupérer les produits en rupture de stock ou avec un stock faible
+        $produitsRuptureStock = $boutique->produits()->where('stock', 0)->get();
+        $produitsStockFaible = $boutique->produits()->where('stock', '>', 0)->where('stock', '<=', 5)->get();
+        
+        // Nombre total de produits ayant des problèmes de stock
+        $nombreProduitsAlerte = $produitsRuptureStock->count() + $produitsStockFaible->count();
+        
+        // Récupérer les statistiques mensuelles (derniers 6 mois)
+        $statsParMois = [];
+        $commandesParMois = [];
+        
+        // Date actuelle moins 5 mois (pour avoir 6 mois au total)
+        $dateDebut = now()->subMonths(5)->startOfMonth();
+        
+        // Pour chaque mois jusqu'à maintenant
+        for ($i = 0; $i < 6; $i++) {
+            $moisCourant = $dateDebut->copy()->addMonths($i);
+            $moisSuivant = $moisCourant->copy()->addMonth();
+            $nomMois = $moisCourant->format('M');
+            
+            // Commandes pour ce mois
+            $commandesMois = $boutique->commandes()
+                ->whereBetween('created_at', [$moisCourant, $moisSuivant])
+                ->get();
+            
+            // Revenu pour ce mois
+            $revenuMois = 0;
+            foreach ($commandesMois as $commande) {
+                $revenuCommande = $commande->articles()
+                    ->whereHas('produit', function($query) use ($boutique) {
+                        $query->where('boutique_id', $boutique->id);
+                    })
+                    ->sum(\DB::raw('prix * quantite'));
+                
+                $revenuMois += $revenuCommande;
+            }
+            
+            $statsParMois[$nomMois] = $revenuMois;
+            $commandesParMois[$nomMois] = $commandesMois->count();
+        }
+        
+        return view('artisan.boutique.dashboard', compact(
+            'boutique', 
+            'produits', 
+            'commandes', 
+            'nombreAvis', 
+            'revenuTotal', 
+            'statsParMois', 
+            'commandesParMois',
+            'produitsRuptureStock',
+            'produitsStockFaible',
+            'nombreProduitsAlerte'
+        ));
     }
 
     /**
