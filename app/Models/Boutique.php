@@ -11,7 +11,11 @@ use App\Models\Avis;
 
 class Boutique extends Model
 {
-    protected $fillable = ['nom', 'description', 'artisan_id', 'photo'];
+    protected $fillable = [
+        'nom', 'description', 'artisan_id', 'photo',
+        'couleur_fond', 'couleur_texte', 'couleur_accent', 'police',
+        'adresse', 'slogan'
+    ];
 
     public function artisan(): BelongsTo
     {
@@ -21,6 +25,16 @@ class Boutique extends Model
     public function produits(): HasMany
     {
         return $this->hasMany(Produit::class);
+    }
+    
+    public function blogPosts(): HasMany
+    {
+        return $this->hasMany(BlogPost::class);
+    }
+    
+    public function bannieres(): HasMany
+    {
+        return $this->hasMany(BannierePromotion::class);
     }
     
     /**

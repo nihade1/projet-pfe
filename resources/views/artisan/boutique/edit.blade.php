@@ -98,6 +98,60 @@
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="slogan" class="form-label">Slogan de la boutique</label>
+                            <input type="text" class="form-control @error('slogan') is-invalid @enderror" 
+                                   id="slogan" name="slogan" value="{{ old('slogan', $boutique->slogan) }}">
+                            @error('slogan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text">Une phrase courte qui résume l'esprit de votre boutique</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="adresse" class="form-label">Adresse physique (optionnelle)</label>
+                            <input type="text" class="form-control @error('adresse') is-invalid @enderror" 
+                                   id="adresse" name="adresse" value="{{ old('adresse', $boutique->adresse) }}">
+                            @error('adresse')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text">Si vous avez un atelier ou une boutique physique</div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        <h5 class="mb-3">Personnalisation visuelle</h5>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="couleur_fond" class="form-label">Couleur de fond</label>
+                                <input type="color" class="form-control form-control-color" id="couleur_fond" name="couleur_fond" 
+                                       value="{{ old('couleur_fond', $boutique->couleur_fond ?? '#ffffff') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="couleur_texte" class="form-label">Couleur du texte</label>
+                                <input type="color" class="form-control form-control-color" id="couleur_texte" name="couleur_texte" 
+                                       value="{{ old('couleur_texte', $boutique->couleur_texte ?? '#333333') }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="couleur_accent" class="form-label">Couleur d'accentuation</label>
+                                <input type="color" class="form-control form-control-color" id="couleur_accent" name="couleur_accent" 
+                                       value="{{ old('couleur_accent', $boutique->couleur_accent ?? '#007A75') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="police" class="form-label">Police</label>
+                                <select class="form-select" id="police" name="police">
+                                    <option value="Roboto" {{ (old('police', $boutique->police) == 'Roboto' || !$boutique->police) ? 'selected' : '' }}>Roboto (moderne)</option>
+                                    <option value="Open Sans" {{ (old('police', $boutique->police) == 'Open Sans') ? 'selected' : '' }}>Open Sans (lisible)</option>
+                                    <option value="Montserrat" {{ (old('police', $boutique->police) == 'Montserrat') ? 'selected' : '' }}>Montserrat (élégante)</option>
+                                    <option value="Raleway" {{ (old('police', $boutique->police) == 'Raleway') ? 'selected' : '' }}>Raleway (légère)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-text mb-3">Ces paramètres permettent de personnaliser l'apparence de votre boutique pour les visiteurs.</div>
                             <div class="form-text">Décrivez votre boutique, vos spécialités, votre histoire, etc.</div>
                         </div>
 
