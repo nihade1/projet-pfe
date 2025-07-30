@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProduitController;
@@ -8,10 +7,13 @@ use App\Http\Controllers\BoutiqueController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\ArtisanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Artisan\TableauDeBordController;
 use App\Http\Controllers\Artisan\BoutiqueController as ArtisanBoutiqueController;
 use App\Http\Controllers\Artisan\ProduitController as ArtisanProduitController;
 use App\Http\Controllers\Artisan\CommandeController as ArtisanCommandeController;
+use App\Http\Controllers\Artisan\BlogPostController;
+use App\Http\Controllers\Artisan\BannierePromotionController;
 
 
 // Routes d'accueil et de recherche
@@ -73,12 +75,29 @@ Route::middleware(\App\Http\Middleware\EnsureUserIsArtisan::class)->prefix('arti
     Route::get('/commandes', [ArtisanCommandeController::class, 'index'])->name('commandes.index');
     Route::get('/commandes/{commande}', [ArtisanCommandeController::class, 'afficher'])->name('commandes.afficher');
     Route::put('/commandes/{commande}/statut', [ArtisanCommandeController::class, 'mettreAJourStatut'])->name('commandes.statut');
+    
+    // Gestion du blog
+    Route::get('/blog', [BlogPostController::class, 'index'])->name('blog.index');
+    Route::get('/blog/creer', [BlogPostController::class, 'creer'])->name('blog.creer');
+    Route::post('/blog', [BlogPostController::class, 'enregistrer'])->name('blog.enregistrer');
+    Route::get('/blog/{blogPost}/editer', [BlogPostController::class, 'editer'])->name('blog.editer');
+    Route::put('/blog/{blogPost}', [BlogPostController::class, 'mettreAJour'])->name('blog.mettreAJour');
+    Route::delete('/blog/{blogPost}', [BlogPostController::class, 'supprimer'])->name('blog.supprimer');
+    
+    // Gestion des bannières promotionnelles
+    Route::get('/bannieres', [BannierePromotionController::class, 'index'])->name('bannieres.index');
+    Route::get('/bannieres/creer', [BannierePromotionController::class, 'creer'])->name('bannieres.creer');
+    Route::post('/bannieres', [BannierePromotionController::class, 'enregistrer'])->name('bannieres.enregistrer');
+    Route::get('/bannieres/{banniere}/editer', [BannierePromotionController::class, 'editer'])->name('bannieres.editer');
+    Route::put('/bannieres/{banniere}', [BannierePromotionController::class, 'mettreAJour'])->name('bannieres.mettreAJour');
+    Route::delete('/bannieres/{banniere}', [BannierePromotionController::class, 'supprimer'])->name('bannieres.supprimer');
 });
 
 Route::get('/dashboard', [ArtisanBoutiqueController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

@@ -2,7 +2,40 @@
 
 @section('title', $boutique->nom)
 
+@section('styles')
+<style>
+    .boutique-personnalisee {
+        background-color: {{ $boutique->couleur_fond ?? '#ffffff' }};
+        color: {{ $boutique->couleur_texte ?? '#333333' }};
+        font-family: '{{ $boutique->police ?? 'Roboto' }}', sans-serif;
+    }
+    .boutique-personnalisee .btn-primary {
+        background-color: {{ $boutique->couleur_accent ?? '#007A75' }};
+        border-color: {{ $boutique->couleur_accent ?? '#007A75' }};
+    }
+    .boutique-personnalisee .card-header {
+        background-color: {{ $boutique->couleur_accent ?? '#007A75' }};
+        color: #ffffff;
+    }
+    .boutique-personnalisee .text-primary {
+        color: {{ $boutique->couleur_accent ?? '#007A75' }} !important;
+    }
+    .boutique-personnalisee .border-primary {
+        border-color: {{ $boutique->couleur_accent ?? '#007A75' }} !important;
+    }
+    .boutique-personnalisee .btn-outline-primary {
+        color: {{ $boutique->couleur_accent ?? '#007A75' }};
+        border-color: {{ $boutique->couleur_accent ?? '#007A75' }};
+    }
+    .boutique-personnalisee .btn-outline-primary:hover {
+        background-color: {{ $boutique->couleur_accent ?? '#007A75' }};
+        color: #ffffff;
+    }
+</style>
+@endsection
+
 @section('content')
+<div class="boutique-personnalisee">
 <div class="container py-5">
     <!-- En-tête de la boutique -->
     <div class="row mb-5">
@@ -18,6 +51,10 @@
         <div class="col-md-8">
             <h1>{{ $boutique->nom }}</h1>
             
+            @if($boutique->slogan)
+                <h5 class="text-muted fst-italic mb-3">{{ $boutique->slogan }}</h5>
+            @endif
+            
             <div class="d-flex align-items-center mb-3">
                 <img src="https://ui-avatars.com/api/?name={{ urlencode($boutique->artisan->user->name) }}&background=random" 
                      alt="{{ $boutique->artisan->user->name }}" 
@@ -26,7 +63,17 @@
                 <span>Par <strong>{{ $boutique->artisan->user->name }}</strong></span>
             </div>
             
+            @if($boutique->adresse)
             <div class="mb-3">
+<<<<<<< HEAD
+=======
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <span>{{ $boutique->adresse }}</span>
+            </div>
+            @endif
+            
+            <div class="mb-3">
+>>>>>>> f14d6e86921ec78b7ed3de73598425023182ff8e
                 @if($avis && $avis->count() > 0)
                     @php
                         $moyenne = $avis->avg('note');
@@ -192,4 +239,9 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 @endsection
+=======
+</div>
+@endsection
+>>>>>>> f14d6e86921ec78b7ed3de73598425023182ff8e

@@ -37,7 +37,7 @@ class CommandeController extends Controller
                 ->whereHas('produit', function($query) use ($boutique) {
                     $query->where('boutique_id', $boutique->id);
                 })
-                ->sum(\DB::raw('prix_unitaire * quantite'));
+                ->sum(\DB::raw('prix * quantite'));
             
             // Déterminer le statut prédominant des articles de cette boutique
             $articles = $commande->articles()

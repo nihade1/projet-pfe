@@ -82,9 +82,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-center align-middle">{{ number_format($article->prix_unitaire, 2) }} MAD</td>
+                                        <td class="text-center align-middle">{{ number_format($article->prix, 2) }} MAD</td>
                                         <td class="text-center align-middle">{{ $article->quantite }}</td>
-                                        <td class="text-center align-middle">{{ number_format($article->prix_unitaire * $article->quantite, 2) }} MAD</td>
+                                        <td class="text-center align-middle">{{ number_format($article->prix * $article->quantite, 2) }} MAD</td>
                                     </tr>
                                 @endforeach
                             </tbody>

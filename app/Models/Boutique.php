@@ -11,7 +11,11 @@ use App\Models\Avis;
 
 class Boutique extends Model
 {
-    protected $fillable = ['nom', 'description', 'artisan_id', 'photo'];
+    protected $fillable = [
+        'nom', 'description', 'artisan_id', 'photo',
+        'couleur_fond', 'couleur_texte', 'couleur_accent', 'police',
+        'adresse', 'slogan'
+    ];
 
     public function artisan(): BelongsTo
     {
@@ -23,12 +27,32 @@ class Boutique extends Model
         return $this->hasMany(Produit::class);
     }
     
-    /**
-     * Obtient les avis associés à cette boutique
-     */
-    public function avis(): HasMany
+    public function blogPosts(): HasMany
     {
-        return $this->hasMany(Avis::class);
+        return $this->hasMany(BlogPost::class);
+    }
+    
+    public function bannieres(): HasMany
+    {
+        return $this->hasMany(BannierePromotion::class);
+    }
+    
+    /**
+     * Obtient les avis associés à cette boutique via ses produits
+     */
+    public function avis()
+    {
+        // Récupère les IDs des produits de cette boutique
+        $produitIds = $this->produits()->pluck('id')->toArray();
+        
+        if (empty($produitIds)) {
+            // Si aucun produit n'existe encore, retourner une collection vide
+            return Avis::whereRaw('1 = 0');
+        }
+        
+        return Avis::whereHas('produit', function ($query) use ($produitIds) {
+            $query->whereIn('id', $produitIds);
+        });
     }
     
     /**

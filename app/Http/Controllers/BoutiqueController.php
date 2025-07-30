@@ -33,21 +33,33 @@ class BoutiqueController extends Controller
      */
     public function afficher(Boutique $boutique)
     {
-        return view('boutiques.show', compact('boutique'));
+        $boutique->load(['artisan.user', 'produits.categorie']);
+        
+        // Récupérer les avis via les produits de la boutique
+        // Nous nous assurons que $avis est toujours une collection, même vide
+        $avis = $boutique->avis()->with('user')->get();
+        
+        return view('boutiques.show', compact('boutique', 'avis'));
     }
     
     /**
-     * Enregistre un avis sur une boutique
+     * Enregistre un avis sur une boutique (via un de ses produits)
+     * Note: Cette fonctionnalité nécessite de choisir un produit spécifique
      */
     public function enregistrerAvis(Request $request, Boutique $boutique)
     {
         $request->validate([
             'note' => 'required|integer|min:1|max:5',
             'commentaire' => 'nullable|string|max:500',
+            'produit_id' => 'required|exists:produits,id'
         ]);
 
-        $boutique->avis()->create([
+        // Vérifier que le produit appartient bien à cette boutique
+        $produit = $boutique->produits()->findOrFail($request->produit_id);
+
+        \App\Models\Avis::create([
             'user_id' => auth()->id(),
+            'produit_id' => $produit->id,
             'note' => $request->note,
             'commentaire' => $request->commentaire,
         ]);
