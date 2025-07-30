@@ -130,8 +130,8 @@
                                             </div>
                                         </td>
                                         <td class="text-center">{{ $article->quantite }}</td>
-                                        <td class="text-end">{{ number_format($article->prix, 2, ',', ' ') }} €</td>
-                                        <td class="text-end">{{ number_format($article->prix * $article->quantite, 2, ',', ' ') }} €</td>
+                                        <td class="text-end">{{ number_format($article->prix, 2, ',', ' ') }} MAD</td>
+                                        <td class="text-end">{{ number_format($article->prix * $article->quantite, 2, ',', ' ') }} MAD</td>
                                         <td class="text-center">
                                             @if($article->statut == 'en_attente')
                                                 <span class="badge bg-warning text-dark">En attente</span>
@@ -151,12 +151,12 @@
                             <tfoot class="table-light">
                                 <tr>
                                     <td colspan="3" class="text-end"><strong>Total pour votre boutique :</strong></td>
-                                    <td class="text-end"><strong>{{ number_format($totalBoutique, 2, ',', ' ') }} €</strong></td>
+                                    <td class="text-end"><strong>{{ number_format($totalBoutique, 2, ',', ' ') }} MAD</strong></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="text-end"><strong>Total de la commande complète :</strong></td>
-                                    <td class="text-end"><strong>{{ number_format($commande->montant_total, 2, ',', ' ') }} €</strong></td>
+                                    <td class="text-end"><strong>{{ number_format($commande->montant_total, 2, ',', ' ') }} MAD</strong></td>
                                     <td></td>
                                 </tr>
                             </tfoot>

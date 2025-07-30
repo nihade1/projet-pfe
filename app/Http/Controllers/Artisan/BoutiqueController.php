@@ -34,6 +34,12 @@ class BoutiqueController extends Controller
             'nom' => 'required|string|max:100',
             'description' => 'required|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg',
+            'slogan' => 'nullable|string|max:200',
+            'adresse' => 'nullable|string|max:255',
+            'couleur_fond' => 'nullable|string|max:7',
+            'couleur_texte' => 'nullable|string|max:7',
+            'couleur_accent' => 'nullable|string|max:7',
+            'police' => 'nullable|string|max:50',
         ]);
 
         $artisan = Auth::user()->artisan;
@@ -42,6 +48,12 @@ class BoutiqueController extends Controller
             'nom' => $request->nom,
             'description' => $request->description,
             'artisan_id' => $artisan->id,
+            'slogan' => $request->slogan,
+            'adresse' => $request->adresse,
+            'couleur_fond' => $request->couleur_fond,
+            'couleur_texte' => $request->couleur_texte,
+            'couleur_accent' => $request->couleur_accent,
+            'police' => $request->police,
         ]);
 
         if ($request->hasFile('photo')) {
@@ -166,6 +178,12 @@ class BoutiqueController extends Controller
             'nom' => 'required|string|max:100',
             'description' => 'required|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg',
+            'slogan' => 'nullable|string|max:200',
+            'adresse' => 'nullable|string|max:255',
+            'couleur_fond' => 'nullable|string|max:7',
+            'couleur_texte' => 'nullable|string|max:7',
+            'couleur_accent' => 'nullable|string|max:7',
+            'police' => 'nullable|string|max:50',
         ]);
 
         $artisan = Auth::user()->artisan;
@@ -173,6 +191,12 @@ class BoutiqueController extends Controller
 
         $boutique->nom = $request->nom;
         $boutique->description = $request->description;
+        $boutique->slogan = $request->slogan;
+        $boutique->adresse = $request->adresse;
+        $boutique->couleur_fond = $request->couleur_fond;
+        $boutique->couleur_texte = $request->couleur_texte;
+        $boutique->couleur_accent = $request->couleur_accent;
+        $boutique->police = $request->police;
 
         if ($request->hasFile('photo')) {
             // Supprimer l'ancienne photo si elle existe
