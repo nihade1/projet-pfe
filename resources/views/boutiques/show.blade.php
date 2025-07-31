@@ -65,12 +65,15 @@
             
             @if($boutique->adresse)
             <div class="mb-3">
+<<<<<<< HEAD
+=======
                 <i class="fas fa-map-marker-alt me-2"></i>
                 <span>{{ $boutique->adresse }}</span>
             </div>
             @endif
             
             <div class="mb-3">
+>>>>>>> f14d6e86921ec78b7ed3de73598425023182ff8e
                 @if($avis && $avis->count() > 0)
                     @php
                         $moyenne = $avis->avg('note');
@@ -236,5 +239,9 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+@endsection
+=======
 </div>
 @endsection
+>>>>>>> f14d6e86921ec78b7ed3de73598425023182ff8e
